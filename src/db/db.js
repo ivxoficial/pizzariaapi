@@ -7,8 +7,8 @@ const db = mysql.createPool({
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    name: process.env.DB_NAME
-})
+    database: process.env.DB_NAME
+});
 
 // Assim como atribuímos todos os poderes de express para app no index, estamos atribuindo a funcionalidade pool a db
 
@@ -17,8 +17,10 @@ const db = mysql.createPool({
     try{
         const connection = await db.getConnection();
         console.log('Conexão com o banco de dados estabelecida com sucesso!');
-        connection.realese();
+        connection.release()
     } catch (err) {
         console.error('Erro ao tentar conectar ao banco de dados:', err);
     }
 })();
+
+export default db;
